@@ -1,23 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 
 function App() {
+  const [className, setClassName] = useState("red")
+  function handleClick() {
+    setClassName(preValue => preValue === "red" ? "blue" : "red")
+  }
+  console.log(className)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={handleClick} style={{ backgroundColor: `${className}` }}>
+        {className === "red" ? "Change to blue" : "Change to red"}
+      </button>
     </div>
   );
 }
