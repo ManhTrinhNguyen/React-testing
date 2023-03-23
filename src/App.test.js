@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
 import { logRoles } from '@testing-library/react';
+import { scryRenderedComponentsWithType } from 'react-dom/test-utils';
 
 test('button has correct initital color and update when Click', () => {
   render(<App />);
@@ -22,7 +23,29 @@ test('button has correct initital color and update when Click', () => {
 });
 
 
-test("button turns blue when clicked", () => {
+test("initial conditions", () => {
   render(<App />)
-  const colorButton = screen.getByRole("button", {name : "Change to blue"})
+  
+  // Check that button starts out enabled
+  const colorButton = screen.getByRole("button", { name: "Change to blue" })
+  expect(colorButton).toBeEnabled()
+
+  // check that checkbox that not checked
+  const checkbox = screen.getByRole("checkbox");
+  expect(checkbox).not.toBeChecked()
+
+})
+
+test("Checkbox disables button on first click and enalbles on second click", () => {
+  render(<App />)
+  const checkbox = screen.getByRole("checkbox", {name : "Disable button"})
+  const button = screen.getByRole("button", { name: "Change to blue" })
+  
+  expect(checkbox).not.toBeChecked()
+  expect(button).toBeEnabled()
+
+  fireEvent.click(checkbox)
+
+  expect(checkbox).toBeChecked()
+  expect(button).toBeDisabled()
 })
