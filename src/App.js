@@ -1,12 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useState } from 'react'; 
 
+export function replaceCamelWithSpaces(colorName) {
+  return colorName.replace(/\B([A-Z])\B/g, ' $1')
+}
+
+console.log(replaceCamelWithSpaces("MediumVioletRed"))
 function App() {
-  const [className, setClassName] = useState("red")
+  const [className, setClassName] = useState("MediumVioletRed")
   const [checkbox, setCheckbox] = useState(false)
-  function handleClick() {
-    setClassName(preValue => preValue === "red" ? "blue" : "red")
+  function handleClick() { 
+     setClassName(prevValue => prevValue === "MediumVioletRed" ? "MidnightBlue"  : "MediumVioletRed" )
   }
   
   function handleChange(e) {
@@ -15,8 +20,8 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={handleClick} disabled={checkbox} style={{ backgroundColor: `${className}` }}>
-        {className === "red" ? "Change to blue" : "Change to red"}
+      <button onClick={handleClick} disabled={checkbox} style={checkbox ? { backgroundColor: "gray" } : { backgroundColor: `${className}`} }>
+        {className === "MediumVioletRed" ? "Change to MidnightBlue" : "Change to MediumVioletRed"}
       </button>
       <input id="check" onChange={handleChange} checked={checkbox} type="checkbox"></input>
       <label htmlFor='check'>Disable button</label>
